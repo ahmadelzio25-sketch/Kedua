@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tombol Prank</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    .btn-prank {
+      position: fixed;
+      width: 200px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      background: #ff0000;
+      color: #fff;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+      transition: all 0.5s ease;
+    }
+    .pos-center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .pos-top-right {
+      top: 10px;
+      right: 10px;
+      left: auto;
+      transform: none;
+    }
+    .pos-bottom-left {
+      bottom: 10px;
+      left: 10px;
+      right: auto;
+      transform: none;
+    }
+    #message {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #333;
+      background: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Audio -->
+  <audio id="prankSound">
+    <source src="https://github.com/ahmadelzio25-sketch/Kedua/raw/refs/heads/main/duar-kontol.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Tombol -->
+  <button class="btn-prank pos-center" id="prankBtn">😆 Klik Aku!</button>
+
+  <!-- Pesan -->
+  <div id="message"> 😹😹😹 </div>
+
+  <script>
+    const btn = document.getElementById('prankBtn');
+    const sound = document.getElementById('prankSound');
+    const message = document.getElementById('message');
+    let clickCount = 0;
+
+    btn.addEventListener('click', () => {
+      clickCount++;
+
+      if (clickCount === 1) {
+        // klik pertama -> kanan atas
+        btn.classList.remove('pos-center', 'pos-bottom-left');
+        btn.classList.add('pos-top-right');
+      } else if (clickCount === 2) {
+        // klik kedua -> kiri bawah
+        btn.classList.remove('pos-top-right', 'pos-center');
+        btn.classList.add('pos-bottom-left');
+      } else if (clickCount === 3) {
+        // klik ketiga -> suara + pesan
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+        message.style.display = "block";
+        clickCount = 0; // reset supaya bisa diulang lagi
+      }
+    });
+  </script>
+</body>
+</html>
